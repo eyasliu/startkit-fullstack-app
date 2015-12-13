@@ -1,7 +1,7 @@
 import webpack from 'webpack';
-import common from './config/webpack.common';
+
 import path from 'path';
-import config from './config/config';
+import config from './config';
 import fs from 'fs';
 
 var nodeModules = {};
@@ -25,7 +25,6 @@ module.exports = {
     filename: '[name].js',
   },
   externals: nodeModules,
-  resolve: common.resolve,
   target: 'node',
   node: {
     __filename: true,

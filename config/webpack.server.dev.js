@@ -1,31 +1,24 @@
 import webpack from 'webpack';
-import common from './config/webpack.common';
+
 import path from 'path';
-import config from './config/config';
+import config from './config';
 import fs from 'fs';
 
-var nodeModules = {};
-fs.readdirSync('node_modules')
-  .filter(function(x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function(mod) {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
+const otherPkg = [
+  "sails/node_modules/rc"
+]
 
-module.exports = {
-  
+export default {
   entry: {
     server: [
       './app/server/app.js'
     ]
   },
   output: {
-    path: path.join(__dirname, './build/'),
+    path: path.join(__dirname, '../build/'),
     filename: '[name].js',
   },
-  externals: nodeModules,
-  resolve: common.resolve,
+  externals: nodeModule(otherPkg),
   target: 'node',
   node: {
     __filename: true,
@@ -56,3 +49,16 @@ module.exports = {
     // })
   ]
 };
+
+function nodeModule(packages){
+  const nodeModules = {};
+  fs.readdirSync('node_modules')
+    .filter(function(x) {
+      return ['.bin'].indexOf(x) === -1;
+    })
+    .concat(packages)
+    .forEach(mod => {
+      nodeModules[mod] = 'commonjs ' + mod;
+    });
+  return nodeModules;
+}

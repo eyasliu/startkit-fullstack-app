@@ -14,6 +14,8 @@ import config from './config/config';
 import WebpackDevServer from 'webpack-dev-server';
 import clientDev from './config/webpack.client.dev.js';
 import clientPro from './config/webpack.client.pro.js';
+import serverDev from './config/webpack.server.dev.js';
+import serverPro from './config/webpack.server.pro.js';
 
 const $ = require('gulp-load-plugins')();
 
@@ -79,9 +81,12 @@ gulp.task('lint', () => {
 
 // build
 gulp.task('build', ['clean'], ()=>{
-  gulp.src('src/app.js')
-    .pipe(gulpWebpack(clientPro))
-    .pipe(gulp.dest('./build'));
+  webpack(serverDev).run((err, stats) => {
+    console.log(stats.toString({
+      chunks: false,
+      colors: true
+    }))
+  })
 });
 
 // build on save
