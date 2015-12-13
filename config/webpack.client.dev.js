@@ -3,13 +3,13 @@ import common from './webpack.common';
 import path from 'path';
 import config from './config';
 
-module.exports = {
+export default {
   
   entry: {
     app: [
       `webpack-dev-server/client?http://${config.host}:${config.clientPort}`,
       'webpack/hot/only-dev-server',
-      './app/client/entry.js'
+      './app/client/index.js'
     ]
   },
   output: {
@@ -23,8 +23,8 @@ module.exports = {
       ...common.module.loaders,
       {
         test: /\.(js|jsx)$/,
-        loaders: ['react-hot', 'babel?cacheDirectory=true'],
-        include: [path.join(__dirname, '../app/client'), path.join(__dirname, 'config')],
+        loaders: ['react-hot', 'babel'],
+        include: [path.join(__dirname, '../app/client'), path.join(__dirname, './')],
         exclude: [path.join(__dirname, '../node_modules'), path.join(__dirname, '../app/client/vendor')]
       }
     ]

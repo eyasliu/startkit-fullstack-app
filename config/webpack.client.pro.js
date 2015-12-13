@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import common from './webpack.common';
 import path from 'path';
 
-module.exports = {
+export default {
   entry: {
     app: [
       './app/client/entry.js'

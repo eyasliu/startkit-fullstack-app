@@ -1,18 +1,27 @@
 import webpack from 'webpack';
 import path from 'path';
 
-const commonConfig = {
+export default {
   resolve: {
     root: path.join(__dirname, 'bower_components'),
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
     alias: {
+      // commom
+      commomUtils: path.join(__dirname, '../app/utils'),
+      static: path.join(__dirname, '../app/static'),
+      app: path.join(__dirname, '../apps'),
+
+      // client
       client: path.join(__dirname, '../app/client'),
-      vendor: path.join(__dirname, '../app/client/vendor'),
       common: path.join(__dirname, '../app/client/common'),
       modules: path.join(__dirname, '../app/client/modules'),
-      utils: path.join(__dirname, '../app/client/utils'),
       framework: path.join(__dirname, '../app/client/modules/framework'),
-      example: path.join(__dirname, '../app/client/modules/example')
+      example: path.join(__dirname, '../app/client/modules/example'),
+      utils: path.join(__dirname, '../app/client/utils'),
+
+      // server
+      server: path.join(__dirname, '../app/server'),
+      api: path.join(__dirname, '../app/server/api')
     }
   },
   output: {
@@ -56,9 +65,9 @@ const commonConfig = {
     //   filename: 'vendor.js'
     // }),
     // bower 文件
-    new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-    ),
+    // new webpack.ResolverPlugin(
+    //   new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+    // ),
     // 全局变量
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -74,4 +83,3 @@ const commonConfig = {
   // }),
   ]
 };
-export default commonConfig;
